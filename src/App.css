@@ -1,38 +1,141 @@
+@font-face {
+  font-family: "AvenirBook";
+  src: url("./assets/fonts/Avenir-Book.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MontserratRegular";
+  src: url("./assets/fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
 .App {
+  font-family: "AvenirBook", sans-serif;
+  padding: 2rem;
+  background: #f9f9f9;
+  min-height: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.page-title {
+  font-size: 45px;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+  color: #000;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Swiper container */
+.product-list-slider {
+  position: relative;
+  padding: 0 60px; /* Okların dışarı taşması için boşluk */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Ürün kartları */
+.product-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Ürün bilgileri */
+.product-name {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #000;
+}
+
+.product-price {
+  font-size: 12px;
+  margin: 4px 0;
+  color: #000;
+}
+
+.product-gold-label {
+  font-family: "MontserratRegular", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 4px 0;
+  color: #000;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 6px;
+  margin-top: 6px;
+  color: #000;
 }
 
-.App-link {
-  color: #61dafb;
+.score-text {
+  font-size: 14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.star-container {
+  display: flex;
+  gap: 2px;
+}
+
+/* Ok içi sembol (› ‹) */
+.swiper-button-next::after {
+  content: "\203A";
+  font-size: 24px;
+  color: black;
+}
+
+.swiper-button-prev::after {
+  content: "\2039";
+  font-size: 24px;
+  color: black;
+}
+
+/* Ok hover */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #f0f0f0 !important;
+}
+
+/* Swiper slide içeriği ortalasın */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+/* Ok butonları stilleri */
+.swiper-button-next,
+.swiper-button-prev {
+  color: black !important;
+  background-color: white !important;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 1000 !important;
+  position: absolute !important;
+}
+
+/* Sol ve sağ ok dışarıda */
+.swiper-button-prev {
+  left: -30px !important;
+}
+
+.swiper-button-next {
+  right: -30px !important;
+}
+
+/* Ok hover efekti */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #f0f0f0 !important;
 }
