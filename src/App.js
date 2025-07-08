@@ -14,11 +14,9 @@ function App() {
 
   useEffect(() => {
     axios
+      // in production you’d hit your Heroku/Vercel URL here instead of localhost
       .get("http://localhost:3001/products")
-      .then((res) => {
-        console.log("GELEN VERİ:", res.data);
-        setProducts(res.data);
-      })
+      .then((res) => setProducts(res.data))
       .catch((err) => console.error(err));
   }, []);
 
@@ -30,16 +28,19 @@ function App() {
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
+          /** default to 1 slide on the smallest widths */
+          slidesPerView={1}
           navigation
-          slidesPerView={4}
+          /** override at these breakpoints */
           breakpoints={{
+            // from 640px up, show 2 cards
+            640: { slidesPerView: 2 },
+            // from 1024px up, show 4 cards
             1024: { slidesPerView: 4 },
-            768: { slidesPerView: 2 },
-            480: { slidesPerView: 1 },
           }}
         >
-          {products.map((product, index) => (
-            <SwiperSlide key={index}>
+          {products.map((product) => (
+            <SwiperSlide key={product.name}>
               <ProductCard product={product} />
             </SwiperSlide>
           ))}

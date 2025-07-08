@@ -1,7 +1,9 @@
+// src/components/ProductCard.js
+
 import React, { useState } from "react";
 import "./ProductCard.css";
 
-function ProductCard({ product }) {
+export default function ProductCard({ product }) {
   const [selectedColor, setSelectedColor] = useState("yellow");
 
   const colorOptions = {
@@ -11,49 +13,37 @@ function ProductCard({ product }) {
   };
 
   const imageUrl =
-    product.images && product.images[selectedColor]
-      ? product.images[selectedColor]
-      : "https://via.placeholder.com/200"; // Yedek görsel
+    product.images?.[selectedColor] || "https://via.placeholder.com/200";
 
-  const renderStars = (score, uniqueId) => {
+  // Popülerlik skoruna göre tam/yarım/boş yıldızları oluşturur
+  function renderStars(scoreOutOf5) {
+    const fullCount = Math.floor(scoreOutOf5);
+    const hasHalf = scoreOutOf5 - fullCount >= 0.5;
+    const emptyCount = 5 - fullCount - (hasHalf ? 1 : 0);
     const stars = [];
-    const totalStars = 5;
 
-    for (let i = 0; i < totalStars; i++) {
-      const fillPercent = Math.min(Math.max(score - i, 0), 1) * 100;
-      const gradientId = `star-gradient-${uniqueId}-${i}`;
-
-      stars.push(
-        <svg
-          key={i}
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill={`url(#${gradientId})`}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id={gradientId}>
-              <stop offset="0%" stopColor="#f0c06e" />
-              <stop offset={`${fillPercent}%`} stopColor="#f0c06e" />
-              <stop offset={`${fillPercent}%`} stopColor="#e0e0e0" />
-              <stop offset="100%" stopColor="#e0e0e0" />
-            </linearGradient>
-          </defs>
-          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-        </svg>
-      );
+    // Tam yıldızlar
+    for (let i = 0; i < fullCount; i++) {
+      stars.push(<span key={`full-${i}`} className="star full" />);
+    }
+    // Yarım yıldız
+    if (hasHalf) {
+      stars.push(<span key="half" className="star half" />);
+    }
+    // Boş yıldızlar
+    for (let i = 0; i < emptyCount; i++) {
+      stars.push(<span key={`empty-${i}`} className="star empty" />);
     }
 
     return stars;
-  };
+  }
 
   return (
     <div className="product-card">
       <img
+        className="product-image"
         src={imageUrl}
         alt={product.name}
-        className="product-image"
         onError={(e) => {
           e.target.onerror = null;
           e.target.src = "https://via.placeholder.com/200";
@@ -61,7 +51,7 @@ function ProductCard({ product }) {
       />
 
       <h3 className="product-name">{product.name}</h3>
-      <p className="product-price">${product.price} USD</p>
+      <p className="product-price">${product.price.toFixed(2)} USD</p>
 
       <div className="color-selector">
         {Object.entries(colorOptions).map(([color, hex]) => (
@@ -79,16 +69,11 @@ function ProductCard({ product }) {
       </p>
 
       <div className="product-rating">
-        <div className="star-container">
-          {renderStars(
-            product.popularityScoreOutOf5,
-            product.id || product.name || Math.random()
-          )}
+        <div className="stars">
+          {renderStars(product.popularityScoreOutOf5)}
         </div>
         <span className="score-text">{product.popularityScoreOutOf5}/5</span>
       </div>
     </div>
   );
 }
-
-export default ProductCard;

@@ -1,117 +1,153 @@
+/* src/components/ProductCard.css */
+
+/* Kartın ana gövdesi */
 .product-card {
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #fff;
   padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 240px;
-  transition: transform 0.2s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 240px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  font-family: "AvenirBook", sans-serif;
 }
 
-.product-card * {
-  margin: 4px 0;
-}
-
-.product-card:hover {
-  transform: translateY(-6px);
-}
-
+/* Ürün görseli */
 .product-image {
   width: 100%;
+  max-width: 200px;
   height: auto;
   object-fit: contain;
-  margin-bottom: 12px;
+  margin: 0 auto 12px;
 }
 
+/* Ürün adı ve fiyatı */
 .product-name {
   font-size: 14px;
-  font-weight: normal;
-  margin: 4px 0;
+  margin: 6px 0;
+  color: #000;
 }
-
 .product-price {
-  font-size: 14px;
-  color: #333;
+  font-size: 12px;
   margin: 4px 0;
+  color: #000;
 }
 
+/* Renk seçim noktaları */
 .color-selector {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin: 14px 0;
-}
-
-.color-selector {
-  display: flex;
   gap: 8px;
-  margin: 8px 0;
+  margin: 10px 0;
 }
-
 .color-dot {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 1.5px solid gray;
+  border: 1px solid #999;
   cursor: pointer;
 }
-
 .color-dot.selected {
-  outline: 2px solid #000;
+  border: 2px solid #000;
 }
 
+/* Seçilen altın türü etiketi */
 .product-gold-label {
-  font-size: 12px;
-  color: #555;
-  margin-top: 4px;
+  font-size: 15px;
+  margin: 4px 0;
+  color: #000;
+  font-family: "MontserratRegular", sans-serif;
 }
 
+/* Yıldız + puan kısmı */
 .product-rating {
-  font-size: 15px;
-  font-family: "Montserrat", sans-serif;
-  margin-top: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+.stars {
+  display: flex;
   gap: 4px;
+  align-items: center;
   justify-content: center;
 }
 
-.stars {
-  display: flex;
-  gap: 2px;
-}
-
+/* Ortak yıldız stili: önce boş (gri) yıldız çizer */
 .star {
-  font-size: 16px;
-  color: #f0c08b;
   position: relative;
-}
-
-.star.empty {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
   color: #e0e0e0;
 }
+.star::before {
+  content: "★";
+}
 
+/* Doluyor yıldız */
+.star.full {
+  color: #f0c08b;
+}
+
+/* Boş yıldız (default gri) */
+.star.empty {
+  /* zaten .star renginde gri */
+}
+
+/* Yarım yıldız */
 .star.half {
   color: #e0e0e0;
 }
-
-.star.half::before {
+.star.half::after {
   content: "★";
-  color: #f0c08b;
   position: absolute;
+  top: 0;
   left: 0;
   width: 50%;
+  height: 100%;
   overflow: hidden;
+  color: #f0c08b;
 }
 
-.star-container {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
+/* Puan metni */
 .score-text {
   font-size: 14px;
+  margin-left: 8px;
+  color: #333;
+}
+
+/* Responsive düzen */
+@media (max-width: 1024px) {
+  .product-card {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    max-width: 45%;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    max-width: 100%;
+    box-shadow: none;
+    padding: 12px;
+  }
+  .product-name {
+    font-size: 13px;
+  }
+  .product-price {
+    font-size: 11px;
+  }
+  .product-gold-label {
+    font-size: 14px;
+  }
+  .stars {
+    margin-top: 4px;
+  }
 }

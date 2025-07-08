@@ -1,141 +1,114 @@
+/* src/App.css */
+
+/* 1) Özel fontları tanımla */
 @font-face {
   font-family: "AvenirBook";
   src: url("./assets/fonts/Avenir-Book.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "MontserratRegular";
   src: url("./assets/fonts/Montserrat-Regular.ttf") format("truetype");
 }
 
+/* 2) Genel uygulama stili */
 .App {
   font-family: "AvenirBook", sans-serif;
   padding: 2rem;
   background: #f9f9f9;
   min-height: 100vh;
   text-align: center;
+  box-sizing: border-box;
 }
 
+/* 3) Sayfa başlığı */
 .page-title {
-  font-size: 45px;
+  font-size: 2.5rem;
   font-weight: normal;
   letter-spacing: 0.5px;
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
   color: #000;
 }
 
-/* Swiper container */
+/* 4) Swiper container */
 .product-list-slider {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px; /* Okların taşabilmesi için yatay boşluk */
+  box-sizing: border-box;
   position: relative;
-  padding: 0 60px; /* Okların dışarı taşması için boşluk */
 }
 
-/* Ürün kartları */
-.product-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 240px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Ürün bilgileri */
-.product-name {
-  font-size: 14px;
-  margin: 6px 0;
-  color: #000;
-}
-
-.product-price {
-  font-size: 12px;
-  margin: 4px 0;
-  color: #000;
-}
-
-.product-gold-label {
-  font-family: "MontserratRegular", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  margin: 4px 0;
-  color: #000;
-}
-
-.product-rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 6px;
-  color: #000;
-}
-
-.score-text {
-  font-size: 14px;
-}
-
-.star-container {
-  display: flex;
-  gap: 2px;
-}
-
-/* Ok içi sembol (› ‹) */
-.swiper-button-next::after {
-  content: "\203A";
-  font-size: 24px;
-  color: black;
-}
-
-.swiper-button-prev::after {
-  content: "\2039";
-  font-size: 24px;
-  color: black;
-}
-
-/* Ok hover */
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  background-color: #f0f0f0 !important;
-}
-
-/* Swiper slide içeriği ortalasın */
+/* 5) Kartların hizalanması */
 .swiper-slide {
   display: flex;
   justify-content: center;
 }
 
-/* Ok butonları stilleri */
-.swiper-button-next,
-.swiper-button-prev {
-  color: black !important;
-  background-color: white !important;
-  border-radius: 50% !important;
+/* 6) Ok butonlarının temel stili */
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
   width: 36px !important;
   height: 36px !important;
+  background-color: #fff !important;
+  border-radius: 50% !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  font-size: 20px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 1000 !important;
-  position: absolute !important;
+  z-index: 10 !important;
+  cursor: pointer;
 }
 
-/* Sol ve sağ ok dışarıda */
-.swiper-button-prev {
-  left: -30px !important;
+/* 7) Ok işaretleri (‹ › Unicode) */
+.swiper-button-prev::after {
+  font-size: 20px;
+  color: #000;
+}
+.swiper-button-next::after {
+  font-size: 20px;
+  color: #000;
 }
 
-.swiper-button-next {
-  right: -30px !important;
-}
-
-/* Ok hover efekti */
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
+/* 8) Ok buton hover */
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
   background-color: #f0f0f0 !important;
+}
+
+/* 10) Responsive breakpoints */
+@media (max-width: 1024px) {
+  .page-title {
+    font-size: 2.2rem;
+  }
+  .product-list-slider {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+  .App {
+    padding: 1.5rem 0.5rem;
+  }
+  .product-list-slider {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.6rem;
+  }
+  .App {
+    padding: 1rem 0.5rem;
+  }
+  .product-list-slider {
+    padding: 0 0.25rem;
+  }
 }
